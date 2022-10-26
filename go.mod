@@ -1,4 +1,4 @@
-module goutils
+module github.com/adr97rich/goutils
 
 go 1.19
 
