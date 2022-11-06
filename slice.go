@@ -44,7 +44,7 @@ func Slice_Sum(a interface{}) (float64) {
     n := reflect.ValueOf(a).Len()
     s := make([]float64, n, n)
 	
-    if n == 0 { return 0, 0 }
+    if n == 0 { return sum }
 	
     switch a.(type) {
     case []int:
