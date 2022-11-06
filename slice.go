@@ -38,6 +38,29 @@ func Slice_Pop(slice interface{}, index int) (bool) {
 
 }
 
+func Slice_Sum(a interface{}) (float64) {
+	
+    var sum float64 = 0	
+    n := reflect.ValueOf(a).Len()
+    s := make([]float64, n, n)
+	
+    if n == 0 { return 0, 0 }
+	
+    switch a.(type) {
+    case []int:
+        for i, e := range a.([]int) { s[i] = float64(e) }
+    case []float64:
+        s = a.([]float64)
+    }
+	
+    for _, e := range s {
+	sum += e
+    }
+    
+    return sum
+	
+}
+
 func InSlice(e interface{}, s interface{}) (bool) {
     
     if Slice_Index(e, s) != -1 {
