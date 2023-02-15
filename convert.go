@@ -58,13 +58,6 @@ func To_Float64(T interface{}) (float64) {
 
 }
 
-func Round_Float64(f float64, dec int) (float64) {
-
-    str := fmt.Sprintf("%." + To_String(dec) + "f", f)
-    return To_Float64(str)
-
-}
-
 func String_To_Date(date_str string) (time.Time) {
 
     date, _ := time.Parse(date_layoutUS, date_str)
