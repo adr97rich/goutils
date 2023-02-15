@@ -1,6 +1,7 @@
 package goutils
 
 import (
+    "fmt"
     "math/rand"
 )
 
