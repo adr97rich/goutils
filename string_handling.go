@@ -50,7 +50,7 @@ func Read_String(field_size int, prompt, border string) (string) {
             }
         }
         // Backspace and Enter
-        if e.Key == 127 && 0 < len(str) {
+        if (e.Key == 127 || e.Key == 8) && 0 < len(str) {
             str = str[0:len(str)-1]
             if len(str) < field_size {
                 for i := 0; i < len(str)+1; i++ {
