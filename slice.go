@@ -38,6 +38,34 @@ func Slice_Pop(slice interface{}, index int) (bool) {
 
 }
 
+func Slice_Remove_Duplicate(slice interface{}) {
+
+    sr := reflect.ValueOf(slice)
+    sr_indir := reflect.Indirect(sr)
+    n := sr_indir.Len()
+    tmp_ns := reflect.MakeSlice(sr.Type().Elem(), 0, 0)
+    ns := reflect.MakeSlice(sr.Type().Elem(), 0, 0)
+    for i := n-1; i >= 0; i-- {
+        duplicated := false
+        for j := i-1; j >= 0; j-- {
+            if reflect.DeepEqual(sr.Elem().Index(i).Interface(), sr.Elem().Index(j).Interface()) {
+                duplicated = true
+                break
+            }
+        }
+        if !duplicated {
+	    tmp_ns = reflect.Append(tmp_ns, sr_indir.Index(i))
+        }
+    }
+
+    for i := tmp_ns.Len()-1; i >= 0; i-- {
+       ns = reflect.Append(ns, tmp_ns.Index(i))
+    }
+
+    sr.Elem().Set(ns)
+
+}
+
 func Slice_Sum(a interface{}) (float64) {
 	
     var sum float64 = 0	
