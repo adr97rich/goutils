@@ -18,14 +18,16 @@ const (
 func To_String(T interface{}) (string) {
     
     switch T.(type) {
-    case int:
-        return strconv.Itoa(T.(int))
-    case bool:
-        return strconv.FormatBool(T.(bool))
-    case float64:
-        return fmt.Sprintf("%g", T.(float64))
-    default:
-        return T.(string)
+        case int:
+            return strconv.Itoa(T.(int))
+        case int64:
+            return strconv.FormatInt(T.(int64), 10)
+        case bool:
+            return strconv.FormatBool(T.(bool))
+        case float64:
+            return fmt.Sprintf("%g", T.(float64))
+        default:
+            return T.(string)
     }
 
 }
