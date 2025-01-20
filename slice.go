@@ -134,33 +134,6 @@ func Slice_Remove_Duplicate(slice interface{}) {
 
 }
 
-func Slice_Sum(a interface{}) float64 {
-
-	var sum float64 = 0
-	n := reflect.ValueOf(a).Len()
-	s := make([]float64, n)
-
-	if n == 0 {
-		return sum
-	}
-
-	switch v := a.(type) {
-	case []int:
-		for i, e := range v {
-			s[i] = float64(e)
-		}
-	case []float64:
-		s = v
-	}
-
-	for _, e := range s {
-		sum += e
-	}
-
-	return sum
-
-}
-
 func InSlice(e interface{}, s interface{}) bool {
 
 	return Slice_Index(e, s) != -1
@@ -181,62 +154,94 @@ func Slice_Index(e interface{}, s interface{}) int {
 
 }
 
-func Min(a interface{}) (int, float64) {
+// For Goutils types
 
-	if reflect.ValueOf(a).Len() == 0 {
-		return 0, 0
-	}
-
-	n := reflect.ValueOf(a).Len()
-	s := make([]float64, n)
-
-	switch v := a.(type) {
-	case []int:
-		for i, e := range v {
-			s[i] = float64(e)
-		}
-	case []float64:
-		s = v
-	}
-
-	min := s[0]
+// Max Value
+func (f_slice Float64_Slice) Max() (int, Float64) {
+	max := f_slice[0]
 	index := 0
-	for i, value := range s {
-		if value < min {
-			min = value
-			index = i
-		}
-	}
-	return index, min
-
-}
-
-func Max(a interface{}) (int, float64) {
-
-	if reflect.ValueOf(a).Len() == 0 {
-		return 0, 0
-	}
-
-	n := reflect.ValueOf(a).Len()
-	s := make([]float64, n)
-
-	switch v := a.(type) {
-	case []int:
-		for i, e := range v {
-			s[i] = float64(e)
-		}
-	case []float64:
-		s = v
-	}
-
-	max := s[0]
-	index := 0
-	for i, value := range s {
+	for i, value := range f_slice {
 		if value > max {
 			max = value
 			index = i
 		}
 	}
-	return index, max
+	return index, Float64(max)
+}
+func (i_slice Int_Slice) Max() (int, Int) {
+	max := i_slice[0]
+	index := 0
+	for i, value := range i_slice {
+		if value > max {
+			max = value
+			index = i
+		}
+	}
+	return index, Int(max)
+}
 
+// Min Value
+func (f_slice Float64_Slice) Min() (int, Float64) {
+	max := f_slice[0]
+	index := 0
+	for i, value := range f_slice {
+		if value < max {
+			max = value
+			index = i
+		}
+	}
+	return index, Float64(max)
+}
+func (i_slice Int_Slice) Min() (int, Int) {
+	max := i_slice[0]
+	index := 0
+	for i, value := range i_slice {
+		if value < max {
+			max = value
+			index = i
+		}
+	}
+	return index, Int(max)
+}
+
+// Summary
+func (f_slice Float64_Slice) Sum() Float64 {
+
+	var sum Float64 = 0
+
+	for _, e := range f_slice {
+		sum += Float64(e)
+	}
+
+	return sum
+
+}
+func (i_slice Int_Slice) Sum() Int {
+
+	var sum Int = 0
+
+	for _, e := range i_slice {
+		sum += e
+	}
+
+	return sum
+
+}
+
+// Adding New String
+func (s String) Prepend(n_s string) String {
+	return String(n_s + s.Value())
+}
+
+func (s String) Append(n_s string) String {
+	return String(s.Value() + n_s)
+}
+
+// Concatenate String Slice
+func (s_slice String_Slice) Concatenate(sep string) String {
+	s := ""
+	for i := range s_slice {
+		s += (s_slice[i].Value() + sep)
+	}
+	return String(s)
 }

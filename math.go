@@ -1,29 +1,50 @@
 package goutils
 
 import (
-    "fmt"
-    "math/rand"
+	"fmt"
+	"math/rand"
 )
 
-func Abs(x float64) (float64) {
+// Generics
 
-    if x < 0 {
-        return -1*x
-    } else {
-        return x
-    }
+func abs(x float64) float64 {
 
-}
-
-func Round_Float64(f float64, dec int) (float64) {
-
-    str := fmt.Sprintf("%." + To_String(dec) + "f", f)
-    return To_Float64(str)
+	if x < 0 {
+		return -1 * x
+	} else {
+		return x
+	}
 
 }
 
-func Random_Float64(inf float64, sup float64) (float64) {
+func Random_Float64(inf, sup float64) float64 {
 
-    return inf + rand.Float64() * (sup - inf)
+	return inf + (rand.Float64() * (sup - inf))
 
+}
+
+func Random_Int(inf, sup int) int {
+
+	return inf + (rand.Int() * (sup - inf))
+
+}
+
+// For goutils types
+
+// For Absolute Value
+func (f Float64) Abs() Float64 {
+	return Float64(abs(f.Value()))
+}
+func (i Int) Abs() Int {
+	return Int(abs(i.To_Float64().Value()))
+}
+func (i Int64) Abs() Int64 {
+	return Int64(abs(i.To_Float64().Value()))
+}
+
+// For rounding a number
+func (f Float64) Round(dec int) Float64 {
+	dec_str := ("%." + Int(dec).To_String() + "f")
+	str := String(fmt.Sprintf(dec_str.Value(), float64(f)))
+	return str.To_Float64()
 }
