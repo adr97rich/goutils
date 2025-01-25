@@ -2,6 +2,7 @@ package goutils
 
 import (
 	"fmt"
+	"math"
 	"math/rand"
 )
 
@@ -47,4 +48,12 @@ func (f Float64) Round(dec int) Float64 {
 	dec_str := ("%." + Int(dec).To_String() + "f")
 	str := String(fmt.Sprintf(dec_str.Value(), float64(f)))
 	return str.To_Float64()
+}
+
+// Power
+func (f Float64) Power(n float64) Float64 {
+	return Float64(math.Pow(f.Value(), n))
+}
+func (i Int) Power(n float64) Float64 {
+	return Float64(math.Pow(i.To_Float64().Value(), n))
 }
