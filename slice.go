@@ -154,6 +154,10 @@ func Slice_Index(e interface{}, s interface{}) int {
 
 }
 
+func Length(s interface{}) Int {
+	return Int(reflect.ValueOf(s).Len())
+}
+
 // For Goutils types
 
 // Max Value
@@ -239,9 +243,15 @@ func (s String) Append(n_s string) String {
 
 // Concatenate String Slice
 func (s_slice String_Slice) Concatenate(sep string) String {
-	s := ""
-	for i := range s_slice {
-		s += (s_slice[i].Value() + sep)
+	str := String("")
+	l := Length(s_slice)
+	for i := Int(0); i < l; i++ {
+		switch i {
+		case (l - 1):
+			str = str.Append(s_slice[i].Value())
+		default:
+			str = str.Append((s_slice[i].Value() + sep))
+		}
 	}
-	return String(s)
+	return str
 }
