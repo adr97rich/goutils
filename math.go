@@ -9,30 +9,24 @@ import (
 // Generics
 
 func abs(x float64) float64 {
-
 	if x < 0 {
 		return -1 * x
 	} else {
 		return x
 	}
-
-}
-
-func Random_Float64(inf, sup float64) float64 {
-
-	return inf + (rand.Float64() * (sup - inf))
-
-}
-
-func Random_Int(inf, sup int) int {
-
-	return inf + (rand.Int() * (sup - inf))
-
 }
 
 // For goutils types
 
-// For Absolute Value
+// For random value
+func Random_Float64(inf, sup Float64) Float64 {
+	return Float64(inf.Value() + (rand.Float64() * (sup - inf).Value()))
+}
+func Random_Int(inf, sup Int) Int {
+	return Random_Float64(inf.To_Float64(), sup.To_Float64()+0.1).To_Int()
+}
+
+// For absolute value
 func (f Float64) Abs() Float64 {
 	return Float64(abs(f.Value()))
 }
@@ -54,6 +48,6 @@ func (f Float64) Round(dec int) Float64 {
 func (f Float64) Power(n float64) Float64 {
 	return Float64(math.Pow(f.Value(), n))
 }
-func (i Int) Power(n float64) Float64 {
-	return Float64(math.Pow(i.To_Float64().Value(), n))
+func (i Int) Power(n float64) Int {
+	return Float64(math.Pow(i.To_Float64().Value(), n)).To_Int()
 }
