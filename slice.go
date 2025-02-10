@@ -71,24 +71,19 @@ func Sort_Slice(s interface{}) {
 }
 
 func Reverse_Slice(slice interface{}) {
-
 	n := reflect.ValueOf(slice).Len()
 	swap := reflect.Swapper(slice)
 	for i, j := 0, n-1; i < j; i, j = i+1, j-1 {
 		swap(i, j)
 	}
-
 }
 
 func Swap_Slice(index1 int, index2 int, slice interface{}) {
-
 	swap := reflect.Swapper(slice)
 	swap(index1, index2)
-
 }
 
 func Slice_Pop(slice interface{}, index int) bool {
-
 	sr := reflect.ValueOf(slice)
 	sr_indir := reflect.Indirect(sr)
 	n := sr_indir.Len()
@@ -103,11 +98,9 @@ func Slice_Pop(slice interface{}, index int) bool {
 	}
 	sr.Elem().Set(ns)
 	return poped
-
 }
 
 func Slice_Remove_Duplicate(slice interface{}) {
-
 	sr := reflect.ValueOf(slice)
 	sr_indir := reflect.Indirect(sr)
 	n := sr_indir.Len()
@@ -131,17 +124,13 @@ func Slice_Remove_Duplicate(slice interface{}) {
 	}
 
 	sr.Elem().Set(ns)
-
 }
 
 func InSlice(e interface{}, s interface{}) bool {
-
 	return Slice_Index(e, s) != -1
-
 }
 
 func Slice_Index(e interface{}, s interface{}) int {
-
 	sr := reflect.ValueOf(s)
 	er := reflect.ValueOf(e)
 	n := sr.Len()
@@ -151,7 +140,6 @@ func Slice_Index(e interface{}, s interface{}) int {
 		}
 	}
 	return -1
-
 }
 
 func Length(s interface{}) Int {
@@ -161,75 +149,67 @@ func Length(s interface{}) Int {
 // For Goutils types
 
 // Max Value
-func (f_slice Float64_Slice) Max() (int, Float64) {
+func (f_slice Float64_Slice) Max() (Int, Float64) {
+	index := Int(0)
 	max := f_slice[0]
-	index := 0
 	for i, value := range f_slice {
 		if value > max {
 			max = value
-			index = i
+			index = Int(i)
 		}
 	}
 	return index, Float64(max)
 }
-func (i_slice Int_Slice) Max() (int, Int) {
+func (i_slice Int_Slice) Max() (Int, Int) {
+	index := Int(0)
 	max := i_slice[0]
-	index := 0
 	for i, value := range i_slice {
 		if value > max {
 			max = value
-			index = i
+			index = Int(i)
 		}
 	}
 	return index, Int(max)
 }
 
 // Min Value
-func (f_slice Float64_Slice) Min() (int, Float64) {
-	max := f_slice[0]
-	index := 0
+func (f_slice Float64_Slice) Min() (Int, Float64) {
+	index := Int(0)
+	min := f_slice[0]
 	for i, value := range f_slice {
-		if value < max {
-			max = value
-			index = i
+		if value < min {
+			min = value
+			index = Int(i)
 		}
 	}
-	return index, Float64(max)
+	return index, Float64(min)
 }
-func (i_slice Int_Slice) Min() (int, Int) {
-	max := i_slice[0]
-	index := 0
+func (i_slice Int_Slice) Min() (Int, Int) {
+	index := Int(0)
+	min := i_slice[0]
 	for i, value := range i_slice {
-		if value < max {
-			max = value
-			index = i
+		if value < min {
+			min = value
+			index = Int(i)
 		}
 	}
-	return index, Int(max)
+	return index, Int(min)
 }
 
 // Summary
 func (f_slice Float64_Slice) Sum() Float64 {
-
-	var sum Float64 = 0
-
+	sum := Float64(0)
 	for _, e := range f_slice {
 		sum += Float64(e)
 	}
-
 	return sum
-
 }
 func (i_slice Int_Slice) Sum() Int {
-
-	var sum Int = 0
-
+	sum := Int(0)
 	for _, e := range i_slice {
 		sum += e
 	}
-
 	return sum
-
 }
 
 // Adding New String
